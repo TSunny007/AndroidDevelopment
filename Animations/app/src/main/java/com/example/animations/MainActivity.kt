@@ -8,28 +8,26 @@ import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
 
-    var bartIsShowing = true
+    var peeking = false
 
     fun fade(view: View) {
         Log.i("Info", "Imageview has been tapped.")
 
         val bartImageView = findViewById<ImageView>(R.id.bartImageView)
-        val homerImageView = findViewById<ImageView>(R.id.homerImageView)
-
-        if (bartIsShowing) {
-            bartIsShowing = false
-            bartImageView.animate().alpha(0f).duration = 2000
-            homerImageView.animate().alpha(1f).duration = 2000
+        if (!peeking) {
+            bartImageView.animate().translationYBy(1000f).duration = 2000
         } else {
-            bartIsShowing = true
-            homerImageView.animate().alpha(0f).duration = 2000
-            bartImageView.animate().alpha(1f).duration = 2000
+            bartImageView.animate().translationYBy(-1000f).duration = 2000
         }
+        peeking = !peeking
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val bartImageView = findViewById<ImageView>(R.id.bartImageView)
+        bartImageView.x = -1000f
+        bartImageView.animate().translationXBy(1000f).rotation(3600f).duration = 2000
     }
 }
